@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { Component } from "react";
+import Navbar from "./components/Navbar";
+import News from "./components/News";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  apiKey=process.env.REACT_APP_NEWS_API_KEY;
+  
+  render() {
+    return (
+      <div>
+        <Router>
+          <Navbar />
+          {console.log(this.apiKey)}
+          <Routes>
+            <Route exact path="/science" element={<News key="sc" category="science" apiKey={this.apiKey}/>} />
+            <Route exact path="/business" element={<News key="b" category="business" apiKey={this.apiKey}/>} />
+            <Route exact path="/entertainment" element={<News key="e" category="entertainment" apiKey={this.apiKey}/>} />
+            <Route exact path="/health" element={<News key="h" category="health" apiKey={this.apiKey}/>} />
+            <Route exact path="/sports" element={<News key="sp" category="sports" apiKey={this.apiKey}/>} />
+            <Route exact path="/technology" element={<News key="t" category="technology" apiKey={this.apiKey}/>} />
+            <Route exact path="/" element={<News key="g" category="general" apiKey={this.apiKey}/>} />
+          </Routes>
+        </Router>
+      </div>
+    );
+  }
 }
-
-export default App;
