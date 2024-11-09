@@ -163,14 +163,15 @@ export class News extends Component {
   }
 
   async componentDidMount() {
+    this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=12`;
     let data = await fetch(url);
     let parseData = await data.json();
     this.setState({
       articles: parseData.articles,
       totalResults: parseData.totalResults,
-      loading: false,
     });
+    this.props.setProgress(100);
   }
 
   async paginationUpdate(pageNumber) {
@@ -209,7 +210,7 @@ export class News extends Component {
         <h1 className="text-center">
           Top headlines- <span>{this.props.category}</span>
         </h1>
-        {this.state.loading && <Spinner />}
+        {/* {this.state.loading && <Spinner />} */}
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
